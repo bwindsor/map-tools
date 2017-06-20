@@ -5,17 +5,18 @@ import * as DrawModeSelector from "./DrawModeSelector"
 export interface MapState {
     drawMode: DrawModeSelector.DrawMode,
     isDrawing: boolean
-    markers: L.LatLng[]
+    lines: L.LatLng[][]
 }
 
 export class Map extends React.Component<undefined, MapState> {
+
     constructor() {
         super();
         // Initial state
         this.state = {
             drawMode: DrawModeSelector.DrawMode.LINE,
             isDrawing: false,
-            markers: []
+            lines: []
         };
     }
 
@@ -23,20 +24,31 @@ export class Map extends React.Component<undefined, MapState> {
         let map = <Leaflet.Map
                     center={[52.2,0.12]} 
                     zoom={12}
-                    onclick={this.onMapClick}>
+                    onclick={this.onMapClick}
+                    onmousemove={this.onMapMouseMove}>
                 <Leaflet.TileLayer
                     url = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
                     minZoom = {8}
                     maxZoom = {19}
                 />
-                {
-                    this.state.markers.map((position, i) =>
-                        <Leaflet.Marker key={"marker"+i.toString()} position={position} />
-                    )
-                }
+                {this.state.lines.map((latLngList, i) => 
+                    <Leaflet.Polyline key={"polyline"+i.toString()} positions={latLngList} />
+                )}
             </Leaflet.Map>;
         return map;
+    }
+
+    onMapMouseMove = (e: L.MouseEvent) => {
+        if (this.state.isDrawing && (this.state.drawMode == DrawModeSelector.DrawMode.LINE)) {
+            const lines = this.state.lines.slice();
+            let lastLine = lines.pop().slice();
+            lastLine.pop();
+            lastLine.push(e.latlng);
+            lines.push(lastLine);
+            this.setState({lines});
+        }
+        
     }
 
     // Note how this uses the arrow and not the function.
@@ -44,24 +56,25 @@ export class Map extends React.Component<undefined, MapState> {
     onMapClick = (e: L.MouseEvent) => {
         let {isDrawing} = this.state;
         if (isDrawing) {
-            this.addMarker(e.latlng);
             isDrawing = false;
-        } else if (this.state.markers.length > 0) {
-            this.clearMarkers();
+        } else if (this.state.lines.length > 0) {
+            this.clearLines();
         } else {
-            this.addMarker(e.latlng);
+            this.addLine([e.latlng, e.latlng])
             isDrawing = true;
         }
         this.setState({isDrawing});
     }
 
-    clearMarkers() {
-        this.setState({markers:[]});
+    clearLines() {
+        this.setState({lines: []});
     }
-    
-    addMarker(latLng: L.LatLng) {
-        const {markers:markers} = this.state;
-        markers.push(latLng);
-        this.setState({markers:markers});
+
+    addLine(latLngList: L.LatLng[]) {
+        const lines = this.state.lines.slice();
+        lines.push(latLngList);
+        this.setState({lines});
     }
+
+
 }
