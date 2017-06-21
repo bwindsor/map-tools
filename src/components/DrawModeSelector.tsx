@@ -6,5 +6,10 @@ export enum DrawMode {
     CIRCLE
 }
 
-export class DrawModeSelector extends React.Component<undefined, undefined> {
+export interface DrawModeSelectorProps {
+    drawMode: DrawMode;
+}
+
+export class DrawModeSelector extends React.Component<DrawModeSelectorProps, undefined> {
+    
 }
