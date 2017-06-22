@@ -1,13 +1,15 @@
 import * as React from "react";
 import * as Leaflet from "react-leaflet";
 import DrawModeSelectorContainer from "../containers/DrawModeSelectorContainer"
+import * as AppState from "../AppState"
 
 export interface MapDispatchProps {
     onMapClick: (e: L.MouseEvent) => void
     onMouseMove: (e: L.MouseEvent) => void
 }
 export interface MapStateProps {
-    lines: L.LatLng[][]
+    lines: L.LatLng[][],
+    circles: AppState.Circle[]
 }
 export interface MapProps extends MapStateProps, MapDispatchProps {}
 
@@ -29,6 +31,11 @@ export class Map extends React.Component<MapProps, undefined> {
                 {this.props.lines.map((latLngList, i) => 
                     <Leaflet.Polyline key={"polyline"+i.toString()} positions={latLngList} />
                 )}
+                {
+                    this.props.circles.map((circle, i) => 
+                        <Leaflet.Circle key={"circle"+i.toString()} center={circle.centre} radius={circle.radius} />
+                    )
+                }
                 <DrawModeSelectorContainer />
             </Leaflet.Map>
         );

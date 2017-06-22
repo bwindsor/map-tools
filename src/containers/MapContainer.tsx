@@ -6,7 +6,8 @@ import * as Actions from "../actions/index"
 
 const mapStateToProps = (state: AppState): MapStateProps => {
     return {
-        lines: state.lines
+        lines: state.lines,
+        circles: state.circles
     }
 }
 
