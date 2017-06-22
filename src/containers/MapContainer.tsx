@@ -4,24 +4,24 @@ import { Map, MapStateProps, MapDispatchProps, MapProps } from '../components/Ma
 import { AppState } from '../AppState'
 import * as Actions from "../actions/index"
 
-const mapStateToProps = (state : AppState) : MapStateProps => {
-  return {
-    lines: state.lines
-  }
+const mapStateToProps = (state: AppState): MapStateProps => {
+    return {
+        lines: state.lines
+    }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<AppState>) : MapDispatchProps => {
-  return {
-    onMapClick: e => { 
-      dispatch(Actions.mapClick(e.latlng))
-    },
-    onMouseMove: e => { dispatch(Actions.mapMouseMove(e.latlng)) }
-  }
+const mapDispatchToProps = (dispatch: Dispatch<AppState>): MapDispatchProps => {
+    return {
+        onMapClick: e => {
+            dispatch(Actions.mapClick(e.latlng))
+        },
+        onMouseMove: e => { dispatch(Actions.mapMouseMove(e.latlng)) }
+    }
 }
 
 const MapContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Map)
 
 export default MapContainer
