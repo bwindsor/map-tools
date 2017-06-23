@@ -10,6 +10,8 @@ export type Circle = {
 export interface AppState {
     drawMode: DrawMode,
     isDrawing: boolean
-    lines: L.LatLng[][],
-    circles: Circle[]
+    drawStart: L.LatLng | null
+    drawEnd: L.LatLng | null
+    distanceMetres: number
+    mousePosition: L.LatLng
 }

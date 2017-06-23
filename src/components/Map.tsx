@@ -1,7 +1,9 @@
 import * as React from "react";
 import * as Leaflet from "react-leaflet";
 import DrawModeSelectorContainer from "../containers/DrawModeSelectorContainer"
+import DrawInfoContainer from "../containers/DrawInfoContainer"
 import * as AppState from "../AppState"
+import Control from "react-leaflet-control"
 
 export interface MapDispatchProps {
     onMapClick: (e: L.MouseEvent) => void
@@ -37,6 +39,7 @@ export class Map extends React.Component<MapProps, undefined> {
                     )
                 }
                 <DrawModeSelectorContainer />
+                <DrawInfoContainer />
             </Leaflet.Map>
         );
     }

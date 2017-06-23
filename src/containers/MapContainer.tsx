@@ -1,13 +1,32 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Map, MapStateProps, MapDispatchProps, MapProps } from '../components/Map'
-import { AppState } from '../AppState'
+import { AppState, DrawMode } from '../AppState'
 import * as Actions from "../actions/index"
 
 const mapStateToProps = (state: AppState): MapStateProps => {
-    return {
-        lines: state.lines,
-        circles: state.circles
+    if (!state.drawStart || !state.drawEnd) {
+        return {
+            lines: [],
+            circles: []
+        }
+    }
+    switch (state.drawMode) {
+        case DrawMode.LINE:
+            return {
+                lines: [[state.drawStart, state.drawEnd]],
+                circles: []
+            }
+        case DrawMode.CIRCLE:
+            return {
+                lines: [],
+                circles: [{
+                    centre: state.drawStart,
+                    radius: state.distanceMetres
+                }]
+            }
+        default:
+            return {lines: [], circles: []}
     }
 }
 
