@@ -5,29 +5,29 @@ import { AppState, DrawMode } from '../AppState'
 import * as Actions from "../actions/index"
 
 const mapStateToProps = (state: AppState): MapStateProps => {
+    let mapProps: MapStateProps = {
+        lines: [],
+        circles:  [],
+        tileUrl: state.tileUrl
+    }
+    
     if (!state.drawStart || !state.drawEnd) {
-        return {
-            lines: [],
-            circles: []
-        }
+        return mapProps;
     }
     switch (state.drawMode) {
         case DrawMode.LINE:
-            return {
-                lines: [[state.drawStart, state.drawEnd]],
-                circles: []
-            }
+            mapProps.lines = [[state.drawStart, state.drawEnd]];
+            break;
         case DrawMode.CIRCLE:
-            return {
-                lines: [],
-                circles: [{
+            mapProps.circles = [{
                     centre: state.drawStart,
                     radius: state.distanceMetres
-                }]
-            }
+                }];
+            break;
         default:
-            return {lines: [], circles: []}
+            // Do  nothing
     }
+    return mapProps;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<AppState>): MapDispatchProps => {

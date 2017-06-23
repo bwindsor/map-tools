@@ -7,6 +7,7 @@ import * as Actions from "../actions/index"
 const mapStateToProps = (state: AppState): DrawInfoProps => {
     return {
         distanceMetres: state.distanceMetres,
+        distanceDescription: (state.drawMode == DrawMode.CIRCLE) ? "Radius" : "Length",
         latLon: state.mousePosition
     }
 }

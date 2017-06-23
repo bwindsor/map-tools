@@ -1,3 +1,5 @@
+export const TILE_URL = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+
 export enum DrawMode {
     LINE,
     CIRCLE
@@ -14,4 +16,5 @@ export interface AppState {
     drawEnd: L.LatLng | null
     distanceMetres: number
     mousePosition: L.LatLng
+    tileUrl: string
 }

@@ -1,5 +1,18 @@
 .leaflet-container {
-        height: 900px;
-        width: 100%;
-        margin: 0 auto;
-      }
+    height: 900px;
+    width: 100%;
+    margin: 0 auto;
+}
+.draw-info {
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 8px;
+    pointer-events: none;
+    padding: 8px;
+    font-size: 14pt;
+}
+.draw-mode-selector {
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 14pt;
+}

@@ -20,6 +20,7 @@ export class DrawModeSelectorControl extends React.Component<DrawModeSelectorPro
   render() {
     return (
         <Control position="topleft">
+            <div className="draw-mode-selector">
             <form>
                 {Object.keys(AppState.DrawMode).filter(k => isNaN(parseInt(k))).map((d,i) => {
                     return (
@@ -32,6 +33,7 @@ export class DrawModeSelectorControl extends React.Component<DrawModeSelectorPro
                     )
                 })}
             </form>
+            </div>
         </Control>
     )
   }

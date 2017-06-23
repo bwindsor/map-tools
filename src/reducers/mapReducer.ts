@@ -8,7 +8,8 @@ const initialState: AppState.AppState = {
     drawStart: null,
     drawEnd: null,
     distanceMetres: 0,
-    mousePosition: L.latLng(0,0)
+    mousePosition: L.latLng(0,0),
+    tileUrl: AppState.TILE_URL
 }
 
 const mapReducer = (state = initialState, action: Actions.MapAction): AppState.AppState => {

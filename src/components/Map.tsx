@@ -12,11 +12,13 @@ export interface MapDispatchProps {
 export interface MapStateProps {
     lines: L.LatLng[][],
     circles: AppState.Circle[]
+    tileUrl: string
 }
+
 export interface MapProps extends MapStateProps, MapDispatchProps {}
 
 export class Map extends React.Component<MapProps, undefined> {
-    
+
     render() {
         return (
             <Leaflet.Map
@@ -25,9 +27,9 @@ export class Map extends React.Component<MapProps, undefined> {
                 onclick={this.props.onMapClick}
                 onmousemove={this.props.onMouseMove}>
                 <Leaflet.TileLayer
-                    url = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    url = {this.props.tileUrl}
                     attribution = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-                    minZoom = {8}
+                    minZoom = {5}
                     maxZoom = {19}
                 />
                 {this.props.lines.map((latLngList, i) => 
@@ -38,6 +40,7 @@ export class Map extends React.Component<MapProps, undefined> {
                         <Leaflet.Circle key={"circle"+i.toString()} center={circle.centre} radius={circle.radius} />
                     )
                 }
+                <Leaflet.ScaleControl position="bottomright"/>
                 <DrawModeSelectorContainer />
                 <DrawInfoContainer />
             </Leaflet.Map>

@@ -1,3 +1,5 @@
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
     // Set the "homepage"
     entry: "./src/index.tsx",
@@ -25,6 +27,15 @@ module.exports = {
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
         ]
     },
+
+     plugins: [
+        new CopyWebpackPlugin([
+            { from: './node_modules/react/dist/react.js' },
+            { from: './node_modules/react-dom/dist/react-dom.js' },
+            { from: 'node_modules/leaflet/dist/leaflet.css'},
+            { from: './src/style.css'}
+        ])
+     ],
 
     // When importing a module whose path matches one of the following, just
     // assume a corresponding global variable exists and use that instead.
