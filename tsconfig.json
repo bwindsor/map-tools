@@ -6,9 +6,16 @@
         "module": "commonjs",
         "target": "es5",
         "jsx": "react",
-        "allowJs": true
+        "allowJs": true,
+        "baseUrl": ".",
+        "paths" :{
+            "*": ["typings/*", "*"]
+        }
     },
     "include": [
         "./src/**/*"
+    ],
+    "files": [
+        "typings/index.d.ts"
     ]
 }
