@@ -1,7 +1,19 @@
-all_tests:
+stages:
+  - install
+  - build
+  - test
+
+task_install:
+  tags:
+    - shell
+  script: npm install
+
+task_build:
   tags:
    - shell
-  script:
-   - npm install
-   - npm run build
-   - npm test
+  script: npm run build
+
+task_test:
+  tags:
+   - shell
+   script: npm test
