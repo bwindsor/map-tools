@@ -1,4 +1,7 @@
 all_tests:
+  tags:
+   - shell
   script:
    - npm install
+   - npm run build
    - npm test
