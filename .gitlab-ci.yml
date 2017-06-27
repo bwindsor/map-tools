@@ -4,22 +4,22 @@ stages:
   - test
 
 before_script:
-  - npm install
+  - call npm install
 
 cache:
   paths:
    - node_modules/
+   - dist/
 
 task_build:
   stage: build
   tags:
    - shell
-  script: npm run build
+  script: call npm run build
 
 task_test:
   stage: test
   tags:
    - shell
   script:
-   - npm run build
-   - npm test
+   - call npm test
