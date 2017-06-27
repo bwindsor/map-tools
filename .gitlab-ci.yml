@@ -16,4 +16,4 @@ task_build:
 task_test:
   tags:
    - shell
-   script: npm test
+  script: npm test
