@@ -6,6 +6,8 @@ stages:
   - test
 
 before_script:
+  - npm config set proxy http://ubuntuproxy:3142
+  - npm config set https-proxy http://ubuntuproxy:3142
   - npm config set registry https://artifacts.uk.cambridgeconsultants.com/artifactory/api/npm/npmjs
   - npm install
 
