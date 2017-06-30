@@ -36,7 +36,7 @@
     "jest": "^20.0.4",
     "source-map-loader": "^0.2.1",
     "ts-jest": "^20.0.6",
-    "typescript": "^2.3.4",
+    "typescript": "2.3.4",
     "webpack": "^3.0.0"
   },
   "jest": {
