@@ -1,9 +1,12 @@
+image: node:6.11
+
 stages:
   - install
   - build
   - test
 
 before_script:
+  - call npm config set registry https://artifacts.uk.cambridgeconsultants.com/artifactory/api/npm/npmjs
   - call npm install
 
 cache:
@@ -14,12 +17,12 @@ cache:
 task_build:
   stage: build
   tags:
-   - shell
+   - docker
   script: call npm run build
 
 task_test:
   stage: test
   tags:
-   - shell
+   - docker
   script:
    - call npm test
