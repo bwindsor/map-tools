@@ -4,6 +4,7 @@
   "description": "Simple tools which are useful with a map.",
   "main": "index.js",
   "scripts": {
+    "start": "npm run build && start /max index.html",
     "build": "node_modules/.bin/webpack",
     "test": "jest"
   },
