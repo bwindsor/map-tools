@@ -1,3 +1,4 @@
+import * as React from "react";
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { DrawInfoControl, DrawInfoProps } from '../components/DrawInfo'
@@ -16,9 +17,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AppState>): Object => {
     return {}
 }
 
-const DrawModeSelectorContainer = connect(
+const DrawInfoContainer = connect(
     mapStateToProps,
     mapDispatchToProps
 )(DrawInfoControl)
 
-export default DrawModeSelectorContainer
+export default DrawInfoContainer

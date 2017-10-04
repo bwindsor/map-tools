@@ -6,8 +6,8 @@ import * as AppState from "../AppState"
 import Control from "react-leaflet-control"
 
 export interface MapDispatchProps {
-    onMapClick: (e: L.MouseEvent) => void
-    onMouseMove: (e: L.MouseEvent) => void
+    onMapClick: (e: L.LeafletMouseEvent) => void
+    onMouseMove: (e: L.LeafletMouseEvent) => void
 }
 export interface MapStateProps {
     lines: L.LatLng[][],

@@ -1,6 +1,7 @@
 import * as AppState from "../AppState"
 import * as Actions from "../actions/index"
 import * as Geometry from "../math/geometry"
+import * as L from "leaflet"
 
 const initialState: AppState.AppState = {
     drawMode: AppState.DrawMode.LINE,
@@ -14,7 +15,7 @@ const initialState: AppState.AppState = {
 
 const mapReducer = (state = initialState, action: Actions.MapAction): AppState.AppState => {
     switch (action.type) {
-        case Actions.MAP_CLICK:
+        case Actions.TypeKeys.MAP_CLICK:
             let newState = { ...state };
             if (state.isDrawing) {
                 newState.isDrawing = false;
@@ -30,7 +31,7 @@ const mapReducer = (state = initialState, action: Actions.MapAction): AppState.A
                 }
             }
             return newState;
-        case Actions.MAP_MOUSE_MOVE:
+        case Actions.TypeKeys.MAP_MOUSE_MOVE:
             if (state.isDrawing) {
                 return {
                     ...state,
@@ -41,7 +42,7 @@ const mapReducer = (state = initialState, action: Actions.MapAction): AppState.A
             } else {
                 return { ...state, mousePosition: action.latLng};
             }
-        case Actions.SWITCH_DRAW_MODE:
+        case Actions.TypeKeys.SWITCH_DRAW_MODE:
             return {
                 ...state,
                 drawMode: action.drawMode,

@@ -1,35 +1,40 @@
 import * as AppState from "../AppState"
 
-export type MAP_CLICK = 'MAP_CLICK'
-export const MAP_CLICK : MAP_CLICK = 'MAP_CLICK'
-export type MAP_MOUSE_MOVE = 'MAP_MOUSE_MOVE'
-export const MAP_MOUSE_MOVE : MAP_MOUSE_MOVE = 'MAP_MOUSE_MOVE'
-export type SWITCH_DRAW_MODE = 'SWITCH_DRAW_MODE'
-export const SWITCH_DRAW_MODE : SWITCH_DRAW_MODE = 'SWITCH_DRAW_MODE'
+export type MapAction = 
+    | MapClickAction
+    | MapMouseMoveAction
+    | SwitchDrawModeAction
+    | OtherAction
 
-export type MapClickAction = { type: MAP_CLICK, latLng: L.LatLng}
-export type MapMouseMoveAction = { type: MAP_MOUSE_MOVE, latLng: L.LatLng}
-export type SwitchDrawModeAction = { type: SWITCH_DRAW_MODE, drawMode: AppState.DrawMode}
+export enum TypeKeys {
+    MAP_CLICK = "MAP_CLICK",
+    MAP_MOUSE_MOVE = "MAP_MOUSE_MOVE",
+    SWITCH_DRAW_MODE = "SWITCH_DRAW_MODE",
+    OTHER_ACTION = "__OTHER_ACTION__"
+}
 
-export type MapAction = MapClickAction | MapMouseMoveAction | SwitchDrawModeAction
+export interface MapClickAction { type: TypeKeys.MAP_CLICK, latLng: L.LatLng}
+export interface MapMouseMoveAction { type: TypeKeys.MAP_MOUSE_MOVE, latLng: L.LatLng}
+export interface SwitchDrawModeAction { type: TypeKeys.SWITCH_DRAW_MODE, drawMode: AppState.DrawMode}
+export interface OtherAction { type: TypeKeys.OTHER_ACTION }
 
 export const mapMouseMove = (latLng: L.LatLng) : MapMouseMoveAction => {
     return {
-        type: MAP_MOUSE_MOVE,
+        type: TypeKeys.MAP_MOUSE_MOVE,
         latLng: latLng
     }
 }
 
 export const mapClick = (latLng: L.LatLng) : MapClickAction => {
     return {
-        type: MAP_CLICK,
+        type: TypeKeys.MAP_CLICK,
         latLng: latLng
     }
 }
 
 export const switchDrawMode = (drawMode: string) : SwitchDrawModeAction => {
     return {
-        type: SWITCH_DRAW_MODE,
+        type: TypeKeys.SWITCH_DRAW_MODE,
         drawMode: (<any>AppState.DrawMode)[drawMode]
     }
 }
