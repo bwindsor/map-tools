@@ -45,7 +45,7 @@ export class Map extends React.Component<MapProps, undefined> {
                 <Leaflet.ScaleControl position="bottomright"/>
                 <DrawModeSelectorContainer />
                 <DrawInfoContainer />
-                {this.props.onInterval && <IntervalSender interval={500} cb={()=>this.props.onInterval()}/>}
+                {this.props.onInterval && <IntervalSender interval={100} cb={()=>this.props.onInterval()}/>}
             </Leaflet.Map>
         );
     }

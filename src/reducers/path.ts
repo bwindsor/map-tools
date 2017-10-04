@@ -18,6 +18,7 @@ export default function pathReducer(state = initialState, action: Actions.PathAc
                 drawCoordinates: copyAndAppend(state.drawCoordinates, action.latLng)
             }
         case Actions.TypeKeys.STOP_PATH:
+            console.log(JSON.stringify(state.drawCoordinates.map(c=>[Math.round(c.lat*1e6)/1e6, Math.round(c.lng*1e6)/1e6])))
             return {
                 ...state,
                 drawStage: AppState.TripleDrawStage.DRAWN
