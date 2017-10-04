@@ -7,16 +7,16 @@ import * as Leaflet from "react-leaflet";
 import * as L from 'leaflet'
 import * as AppState from "../AppState"
 
-export interface DrawModeSelectorStateProps{
-    drawMode: AppState.DrawMode;
+export interface StateFromProps{
+    drawMode: AppState.DrawMode
 }
-export interface DrawModeSelectorDispatchProps{
+export interface DispatchFromProps{
     onChange: React.EventHandler<React.ChangeEvent<HTMLButtonElement>>
 }
 
-export interface DrawModeSelectorProps extends DrawModeSelectorStateProps, DrawModeSelectorDispatchProps {}
+export interface Props extends StateFromProps, DispatchFromProps {}
 
-export class DrawModeSelectorControl extends React.Component<DrawModeSelectorProps, undefined> {  // note we're extending MapControl from react-leaflet, not Component from react
+export class DrawModeSelectorControl extends React.Component<Props, undefined> {  // note we're extending MapControl from react-leaflet, not Component from react
   render() {
     return (
         <Control position="topleft">
@@ -38,12 +38,3 @@ export class DrawModeSelectorControl extends React.Component<DrawModeSelectorPro
     )
   }
 }
-/*
-<Control position="topleft">
-      <button 
-          onClick={ () => console.log("Hello world") }
-        >
-          Click me
-        </button>
-    </Control>
-    */

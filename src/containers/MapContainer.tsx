@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Map, MapStateProps, MapDispatchProps, MapProps } from '../components/Map'
+import { Map, MapStateProps, MapDispatchProps } from '../components/Map'
 import { AppState, DrawMode } from '../AppState'
 import * as Actions from "../actions/index"
 

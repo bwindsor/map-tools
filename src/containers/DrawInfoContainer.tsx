@@ -13,13 +13,11 @@ const mapStateToProps = (state: AppState): DrawInfoProps => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<AppState>): Object => {
+const mapDispatchToProps = (dispatch: Dispatch<AppState>): {} => {
     return {}
 }
 
-const DrawInfoContainer = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(DrawInfoControl)
-
-export default DrawInfoContainer
