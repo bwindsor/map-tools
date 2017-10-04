@@ -31,11 +31,15 @@ export interface CircleState extends TripleDrawState {
 export interface MouseState {
     position: L.LatLng
 }
+export interface PathState extends TripleDrawState {
+    drawCoordinates: L.LatLng[]
+}
 
 export interface AppState {
     drawMode: DrawMode,
     lineState: LineState,
     circleState: CircleState,
-    mouseState: MouseState
+    mouseState: MouseState,
+    pathState: PathState,
     tileUrl: string
 }
