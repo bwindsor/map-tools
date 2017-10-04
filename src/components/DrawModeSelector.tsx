@@ -22,12 +22,13 @@ export class DrawModeSelectorControl extends React.Component<Props, undefined> {
         <Control position="topleft">
             <div className="draw-mode-selector">
             <form>
-                {Object.keys(AppState.DrawMode).map((d: AppState.DrawMode,i) => {
+                {Object.keys(AppState.DrawMode).map((d,i) => {
+                    let v: AppState.DrawMode = (AppState.DrawMode as any)[d]
                     return (
                         <div key={d}>
                             <label>
-                                <input type="radio" value={d} checked={d === this.props.drawMode} onChange={this.props.onChange} />
-                                {(AppState.DrawMode as any)[d]}
+                                <input type="radio" value={v} checked={v === this.props.drawMode} onChange={this.props.onChange} />
+                                {v}
                             </label>
                         </div>
                     )

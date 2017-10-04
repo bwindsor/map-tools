@@ -25,6 +25,10 @@ const mapStateToProps = (state: AppState.AppState): MapStateProps => {
                 }]
             }
             break
+        case AppState.DrawMode.TIMED_PATH:
+            if (state.pathState.drawStage != AppState.TripleDrawStage.NONE) {
+                mapProps.lines = [state.pathState.drawCoordinates]
+            }
         default:
             // Do  nothing
             break
@@ -37,7 +41,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AppState.AppState>): MapDispatchP
         onMapClick: e => {
             dispatch(Actions.mapClick(e.latlng))
         },
-        onMouseMove: e => { dispatch(Actions.mapHover(e.latlng)) }
+        onMouseMove: e => { dispatch(Actions.mapHover(e.latlng)) },
+        onInterval: () => { dispatch(Actions.updatePath()) }
     }
 }
 

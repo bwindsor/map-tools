@@ -4,10 +4,12 @@ import DrawModeSelectorContainer from "../containers/DrawModeSelectorContainer"
 import DrawInfoContainer from "../containers/DrawInfoContainer"
 import * as AppState from "../AppState"
 import Control from "react-leaflet-control"
+import IntervalSender from './IntervalSender'
 
 export interface MapDispatchProps {
     onMapClick: (e: L.LeafletMouseEvent) => void
     onMouseMove: (e: L.LeafletMouseEvent) => void
+    onInterval: () => void
 }
 export interface MapStateProps {
     lines: L.LatLng[][],
@@ -43,6 +45,7 @@ export class Map extends React.Component<MapProps, undefined> {
                 <Leaflet.ScaleControl position="bottomright"/>
                 <DrawModeSelectorContainer />
                 <DrawInfoContainer />
+                {this.props.onInterval && <IntervalSender interval={500} cb={()=>this.props.onInterval()}/>}
             </Leaflet.Map>
         );
     }

@@ -73,3 +73,12 @@ export const modeSelect = (m: AppState.DrawMode): CreatorFunction => {
         dispatch(Path.clearPath())
     }
 }
+
+export const updatePath = () : CreatorFunction => {
+    return (dispatch, getState) => {
+        let state = getState()
+        if (state.drawMode == AppState.DrawMode.TIMED_PATH && state.pathState.drawStage == AppState.TripleDrawStage.DRAWING) {
+            dispatch(Path.updatePath(state.mouseState.position))
+        }
+    }
+}

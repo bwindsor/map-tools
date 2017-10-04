@@ -14,6 +14,7 @@ export default function pathReducer(state = initialState, action: Actions.PathAc
         case Actions.TypeKeys.START_PATH:
             return {
                 ...state,
+                drawStage: AppState.TripleDrawStage.DRAWING,
                 drawCoordinates: copyAndAppend(state.drawCoordinates, action.latLng)
             }
         case Actions.TypeKeys.STOP_PATH:
@@ -24,6 +25,7 @@ export default function pathReducer(state = initialState, action: Actions.PathAc
         case Actions.TypeKeys.CLEAR_PATH:
             return {
                 ...state,
+                drawStage: AppState.TripleDrawStage.NONE,
                 drawCoordinates: []
             }
         case Actions.TypeKeys.UPDATE_PATH:
