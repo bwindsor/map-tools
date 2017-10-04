@@ -6,6 +6,9 @@ import MapContainer from "./containers/MapContainer"
 import * as AppState from "./AppState"
 import mapApp from "./reducers/mapReducer"
 
+declare var require: any
+require('./style.scss')
+
 let store = createStore(mapApp)
 
 ReactDOM.render(

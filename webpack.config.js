@@ -1,13 +1,16 @@
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+    devtool: 'source-map',
+
     // Set the "homepage"
     entry: "./src/index.tsx",
     
     // Output the js bundle to the dist folder
     output: {
         filename: "bundle.js",
-        path: __dirname + "/dist"
+        path: __dirname + "/dist",
+        publicPath: "/dist/"
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -19,12 +22,16 @@ module.exports = {
     },
 
     module: {
-        rules: [
+        loaders: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+
+            // CSS and preprocess SCSS
+            { test: /\.css$/, loader: "style-loader!css-loader" },
+            { test: /\.scss$/, loader: "style-loader!css-loader!sass-loader" }
         ]
     },
 
@@ -32,8 +39,7 @@ module.exports = {
         new CopyWebpackPlugin([
             { from: './node_modules/react/dist/react.js' },
             { from: './node_modules/react-dom/dist/react-dom.js' },
-            { from: 'node_modules/leaflet/dist/leaflet.css'},
-            { from: './src/style.css'}
+            { from: 'node_modules/leaflet/dist', to: 'leaflet'}
         ])
      ],
 
@@ -43,6 +49,7 @@ module.exports = {
     // dependencies, which allows browsers to cache those libraries between builds.
     externals: {
         "react": "React",
-        "react-dom": "ReactDOM"
+        "react-dom": "ReactDOM",
+        "leaflet": "L"
     },
 };
