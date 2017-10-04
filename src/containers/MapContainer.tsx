@@ -1,41 +1,43 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Map, MapStateProps, MapDispatchProps } from '../components/Map'
-import { AppState, DrawMode } from '../AppState'
+import * as  AppState from '../AppState'
 import * as Actions from "../actions/index"
 
-const mapStateToProps = (state: AppState): MapStateProps => {
+const mapStateToProps = (state: AppState.AppState): MapStateProps => {
     let mapProps: MapStateProps = {
         lines: [],
-        circles:  [],
+        circles: [],
         tileUrl: state.tileUrl
     }
-    
-    if (!state.drawStart || !state.drawEnd) {
-        return mapProps;
-    }
+
     switch (state.drawMode) {
-        case DrawMode.LINE:
-            mapProps.lines = [[state.drawStart, state.drawEnd]];
-            break;
-        case DrawMode.CIRCLE:
-            mapProps.circles = [{
-                    centre: state.drawStart,
-                    radius: state.distanceMetres
-                }];
-            break;
+        case AppState.DrawMode.LINE:
+            if (state.lineState.drawStage != AppState.TripleDrawStage.NONE) {
+                mapProps.lines = [[state.lineState.drawStart, state.lineState.drawEnd]]
+            }
+            break
+        case AppState.DrawMode.CIRCLE:
+            if (state.circleState.drawStage != AppState.TripleDrawStage.NONE) {
+                mapProps.circles = [{
+                    centre: state.circleState.drawCentre,
+                    radius: state.circleState.drawRadius
+                }]
+            }
+            break
         default:
             // Do  nothing
+            break
     }
-    return mapProps;
+    return mapProps
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<AppState>): MapDispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<AppState.AppState>): MapDispatchProps => {
     return {
         onMapClick: e => {
             dispatch(Actions.mapClick(e.latlng))
         },
-        onMouseMove: e => { dispatch(Actions.mapMouseMove(e.latlng)) }
+        onMouseMove: e => { dispatch(Actions.mapHover(e.latlng)) }
     }
 }
 

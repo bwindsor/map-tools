@@ -1,40 +1,70 @@
 import * as AppState from "../AppState"
+import * as Line from './line'
+import * as Circle from './circle'
+import * as Mouse from './mouse'
+import * as Mode from './mode'
+import { Dispatch } from 'redux'
+import { CreatorFunction } from './common'
+
+export var LineActions = Line
+export var CircleActions = Circle
+export var MouseActions = Mouse
+export var ModeActions = Mode
 
 export type MapAction = 
-    | MapClickAction
-    | MapMouseMoveAction
-    | SwitchDrawModeAction
+    | Line.LineAction
+    | Circle.CircleAction
+    | Mouse.MouseAction
+    | Mode.ModeAction
     | OtherAction
 
-export enum TypeKeys {
-    MAP_CLICK = "MAP_CLICK",
-    MAP_MOUSE_MOVE = "MAP_MOUSE_MOVE",
-    SWITCH_DRAW_MODE = "SWITCH_DRAW_MODE",
+export type TypeKeys = OtherTypeKeys | Line.TypeKeys | Circle.TypeKeys | Mouse.TypeKeys | Mode.TypeKeys
+
+enum OtherTypeKeys {
     OTHER_ACTION = "__OTHER_ACTION__"
 }
 
-export interface MapClickAction { type: TypeKeys.MAP_CLICK, latLng: L.LatLng}
-export interface MapMouseMoveAction { type: TypeKeys.MAP_MOUSE_MOVE, latLng: L.LatLng}
-export interface SwitchDrawModeAction { type: TypeKeys.SWITCH_DRAW_MODE, drawMode: AppState.DrawMode}
-export interface OtherAction { type: TypeKeys.OTHER_ACTION }
+interface OtherAction { type: OtherTypeKeys.OTHER_ACTION }
 
-export const mapMouseMove = (latLng: L.LatLng) : MapMouseMoveAction => {
-    return {
-        type: TypeKeys.MAP_MOUSE_MOVE,
-        latLng: latLng
+// Action creators
+export const mapClick = (latLng: L.LatLng) : CreatorFunction => {
+    return (dispatch, getState) => {
+        dispatch(Mouse.mapClick(latLng))
+        let state = getState()
+        switch (state.drawMode) {
+            case AppState.DrawMode.CIRCLE:
+                dispatch(Circle.nextDrawStage(state.circleState, latLng))
+                break
+            case AppState.DrawMode.LINE:
+                dispatch(Line.nextDrawStage(state.lineState, latLng))
+                break
+            case AppState.DrawMode.TIMED_PATH:
+                break
+        }
     }
 }
 
-export const mapClick = (latLng: L.LatLng) : MapClickAction => {
-    return {
-        type: TypeKeys.MAP_CLICK,
-        latLng: latLng
+export const mapHover = (latLng: L.LatLng): CreatorFunction => {
+    return (dispatch, getState) => {
+        dispatch(Mouse.mapMouseMove(latLng))
+        let state = getState()
+        switch (state.drawMode) {
+            case AppState.DrawMode.CIRCLE:
+                state.circleState.drawStage == AppState.TripleDrawStage.DRAWING && dispatch(Circle.updateCircle(latLng))
+                break
+            case AppState.DrawMode.LINE:
+                state.lineState.drawStage == AppState.TripleDrawStage.DRAWING && dispatch(Line.updateLineEnd(latLng))
+                break
+            case AppState.DrawMode.TIMED_PATH:
+                break
+        }
     }
 }
 
-export const switchDrawMode = (drawMode: string) : SwitchDrawModeAction => {
-    return {
-        type: TypeKeys.SWITCH_DRAW_MODE,
-        drawMode: (<any>AppState.DrawMode)[drawMode]
+export const modeSelect = (m: AppState.DrawMode): CreatorFunction => {
+    return (dispatch, getState) => {
+        dispatch(Mode.switchDrawMode(m))
+        dispatch(Line.stopLine)
+        dispatch(Circle.stopCircle)
     }
 }
