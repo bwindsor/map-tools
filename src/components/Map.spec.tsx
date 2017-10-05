@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { configure, mount } from 'enzyme'
 import * as renderer from 'react-test-renderer'
-import { Map } from '../src/components/Map'
+import { Map } from './Map'
 import * as L from 'leaflet'
 import * as Adapter from 'enzyme-adapter-react-15'
 
