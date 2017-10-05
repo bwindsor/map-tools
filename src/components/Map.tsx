@@ -1,7 +1,5 @@
 import * as React from "react";
 import * as Leaflet from "react-leaflet";
-import DrawModeSelectorContainer from "../containers/DrawModeSelectorContainer"
-import DrawInfoContainer from "../containers/DrawInfoContainer"
 import * as AppState from "../AppState"
 import Control from "react-leaflet-control"
 import IntervalSender from './IntervalSender'
@@ -43,8 +41,7 @@ export class Map extends React.Component<MapProps, undefined> {
                     )
                 }
                 <Leaflet.ScaleControl position="bottomright"/>
-                <DrawModeSelectorContainer />
-                <DrawInfoContainer />
+                {this.props.children}
                 {this.props.onInterval && <IntervalSender interval={100} cb={()=>this.props.onInterval()}/>}
             </Leaflet.Map>
         );

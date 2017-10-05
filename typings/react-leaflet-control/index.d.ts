@@ -1,5 +1,7 @@
 import * as Leaflet from "react-leaflet"
 
-export default class Control extends Leaflet.MapControl{
+declare class Control extends Leaflet.MapControl{
     
 }
+
+export default Control
